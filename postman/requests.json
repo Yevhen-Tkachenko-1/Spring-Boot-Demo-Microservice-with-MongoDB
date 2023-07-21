@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "49ef8e4e-6580-4a04-bb98-a948dd2dfed5",
+		"name": "Spring-Boot-Demo-Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13907776"
+	},
+	"item": [
+		{
+			"name": "1. Load all Tour Packages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tourPackages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Save Tour Package",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\" : \"ZC\",\r\n    \"name\" : \"Zany Cali\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/tourPackages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Load Tour Package by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tourPackages/ZC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages",
+						"ZC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Update Tour Package",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Zany California\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/tourPackages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Load Tour Package by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tourPackages/ZC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages",
+						"ZC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Delete Tour Package by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tourPackages/ZC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages",
+						"ZC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Load Tour Package by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tourPackages/ZC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages",
+						"ZC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. Try Delete used Tour Package by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tourPackages/BC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages",
+						"BC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. Load Tour Package by NAME",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tourPackages/ZC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tourPackages",
+						"ZC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10. Profile Tour Packages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/profile/tourPackages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"profile",
+						"tourPackages"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
