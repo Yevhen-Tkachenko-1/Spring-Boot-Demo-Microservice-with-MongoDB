@@ -224,7 +224,32 @@
 			"response": []
 		},
 		{
-			"name": "11. Page Tours",
+			"name": "11. Sort Tours",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours?sort=title,asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "title,asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12. Page Tours",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -261,7 +286,7 @@
 			"response": []
 		},
 		{
-			"name": "12. Page Tours by TourPackageCode",
+			"name": "13. Page Tours by TourPackageCode",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -294,6 +319,26 @@
 							"key": "sort",
 							"value": "title,asc"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14. Try Delete Tour",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1"
 					]
 				}
 			},
