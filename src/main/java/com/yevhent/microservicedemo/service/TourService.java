@@ -9,6 +9,8 @@ import com.yevhent.microservicedemo.repository.TourRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TourService {
@@ -28,5 +30,9 @@ public class TourService {
 
     public long total() {
         return tourRepository.count();
+    }
+
+    public List<Tour> getAll(){
+        return (List<Tour>) tourRepository.findAll();
     }
 }

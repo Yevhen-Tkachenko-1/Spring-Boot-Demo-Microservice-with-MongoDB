@@ -58,4 +58,17 @@ public class Tour {
     @Enumerated
     @NonNull
     private Region region;
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", duration='" + duration + '\'' +
+                ", tourPackage=" + tourPackage +
+                ", difficulty=" + difficulty +
+                ", region=" + region +
+                '}';
+    }
 }
