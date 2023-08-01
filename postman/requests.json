@@ -90,14 +90,15 @@
 					"raw": "{\r\n    \"name\" : \"Zany California\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8084/tourPackages",
+					"raw": "http://localhost:8084/tourPackages/ZC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages"
+						"tourPackages",
+						"ZC"
 					]
 				}
 			},
@@ -189,7 +190,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tourPackages/ZC",
+					"raw": "http://localhost:8084/tourPackages/search/findByName?name=Backpack%20Cal",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -197,7 +198,14 @@
 					"port": "8084",
 					"path": [
 						"tourPackages",
-						"ZC"
+						"search",
+						"findByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Backpack%20Cal"
+						}
 					]
 				}
 			},
@@ -254,7 +262,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours?&size=3&page=1&sort=title,asc",
+					"raw": "http://localhost:8084/tours?page=1&size=3&sort=title,asc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -265,16 +273,12 @@
 					],
 					"query": [
 						{
-							"key": "",
-							"value": null
+							"key": "page",
+							"value": "1"
 						},
 						{
 							"key": "size",
 							"value": "3"
-						},
-						{
-							"key": "page",
-							"value": "1"
 						},
 						{
 							"key": "sort",
@@ -291,7 +295,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/search/findByTourPackageCode?code=CC&size=2&page=0&sort=title,asc",
+					"raw": "http://localhost:8084/tours/search/findByTourPackageCode?code=CC&page=0&size=2&sort=title,asc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -308,12 +312,12 @@
 							"value": "CC"
 						},
 						{
-							"key": "size",
-							"value": "2"
-						},
-						{
 							"key": "page",
 							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "2"
 						},
 						{
 							"key": "sort",
@@ -339,6 +343,329 @@
 					"path": [
 						"tours",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "15. Load all Tours",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "16. Load All Ratings for Tour[1]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "17. Sort Ratings by Score for Tour[1]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings?sort=score,desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "score,desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "18. Page Ratings for Tour[1]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings?page=2&size=1&sort=score,desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						},
+						{
+							"key": "sort",
+							"value": "score,desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "19. Save Rating for Tour[1]",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"score\" : 5,\r\n    \"comment\" : \"best\",\r\n    \"customerId\" : 100\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "20. Load All Ratings for Tour[1]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "21. Calculate Average Rating for Tour[1]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings/average",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings",
+						"average"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "22. Fully Update Rating[cutomerId=100] for Tour[1]",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"score\" : 4,\r\n    \"comment\" : \"good\",\r\n    \"customerId\" : 100\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "23. Load All Ratings for Tour[1]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "24. Partially update Rating[cutomerId=100] for Tour[1]",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"score\" : 3,\r\n    \"customerId\" : 100\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "25. Load All Ratings for Tour[1]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "26. Delete Rating[customerId=100] for Tour[1]",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "27. Load All Ratings for Tour[1]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/tours/1/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"tours",
+						"1",
+						"ratings"
 					]
 				}
 			},
