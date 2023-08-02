@@ -2,74 +2,39 @@ package com.yevhent.microservicedemo.loader;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yevhent.microservicedemo.domain.Difficulty;
-import com.yevhent.microservicedemo.domain.Region;
+import lombok.Getter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
-/**
- * Helper class to import ExploreCalifornia.json
- */
+@Getter
 public class TourWrapper {
 
     //fields
-    private String packageType;
-    private String title;
-    private String description;
-    private String price;
-    private String length;
-    private String bullets;
-    private String keywords;
-    private String difficulty;
-    private String region;
+    String title;
+    String packageName;
+    Map<String, String> details;
+
+    public TourWrapper(Map<String, String> record) {
+        this.title = record.get("title");
+        this.packageName = record.get("packageType");
+        this.details = record;
+        this.details.remove("packageType");
+        this.details.remove("title");
+    }
 
     //reader
-    public static List<TourWrapper> read(String fileToImport) throws IOException {
-        return new ObjectMapper().setVisibility(FIELD, ANY).readValue(new FileInputStream(fileToImport), new TypeReference<>() {
-        });
-    }
-
-    protected TourWrapper() {
-    }
-
-    public String getPackageType() {
-        return packageType;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Integer getPrice() {
-        return Integer.parseInt(price);
-    }
-
-    public String getLength() {
-        return length;
-    }
-
-    public String getBullets() {
-        return bullets;
-    }
-
-    public String getKeywords() {
-        return keywords;
-    }
-
-    public Difficulty getDifficulty() {
-        return Difficulty.valueOf(difficulty);
-    }
-
-    public Region getRegion() {
-        return Region.findByLabel(region);
+    static List<TourWrapper> read(String fileToImport) throws IOException {
+        List<Map<String, String>> records = new ObjectMapper().setVisibility(FIELD, ANY)
+                .readValue(new FileInputStream(fileToImport), new TypeReference<>() {
+                });
+        return records.stream().map(TourWrapper::new)
+                .collect(Collectors.toList());
     }
 }

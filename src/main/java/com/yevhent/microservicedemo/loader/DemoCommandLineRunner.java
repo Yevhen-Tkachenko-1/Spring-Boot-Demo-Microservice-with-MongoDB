@@ -71,14 +71,8 @@ public class DemoCommandLineRunner {
                 .map(importedTour ->
                         tourService.createTour(
                                 importedTour.getTitle(),
-                                importedTour.getDescription(),
-                                importedTour.getPrice(),
-                                importedTour.getLength(),
-                                importedTour.getBullets(),
-                                importedTour.getKeywords(),
-                                importedTour.getPackageType(),
-                                importedTour.getDifficulty(),
-                                importedTour.getRegion())
+                                importedTour.getPackageName(),
+                                importedTour.getDetails())
                 )
                 .collect(Collectors.toList());
     }
@@ -87,7 +81,7 @@ public class DemoCommandLineRunner {
 
         tours.stream().limit(3).forEach(tour -> {
             for (int i = 3; i <= 5; i++) {
-                tourRatingRepository.save(new TourRating(tour, i * 10, i));
+                tourRatingRepository.save(new TourRating(tour.getId(), i * 10, i));
             }
         });
     }

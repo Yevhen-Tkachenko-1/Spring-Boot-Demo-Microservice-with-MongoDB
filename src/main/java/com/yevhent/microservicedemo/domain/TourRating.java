@@ -1,50 +1,60 @@
 package com.yevhent.microservicedemo.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Rating of a Tour by a Customer
  */
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Document
 public class TourRating {
 
-    @EmbeddedId
-    private TourRatingPk pk;
+    @Id
+    private String id;
 
-    @Column(nullable = false)
+    private String tourId;
+
+    @NotNull
+    private Integer customerId;
+
+    @Min(0)
+    @Max(5)
     private Integer score;
 
-    @Column
+    @Size(max = 255)
     private String comment;
 
-    public static String toString(Integer score) {
-        return switch (score) {
-            case 1 -> "worst";
-            case 2 -> "worse";
-            case 3 -> "well";
-            case 4 -> "better";
-            case 5 -> "best";
-            default -> "Unknown score: " + score;
-        };
-    }
-
-    public TourRating(Tour tour, Integer customerId, Integer score) {
-        this.pk = new TourRatingPk(tour, customerId);
+    public TourRating(String tourId, @NotNull Integer customerId, Integer score) {
+        this.tourId = tourId;
+        this.customerId = customerId;
         this.score = score;
         this.comment = toString(score);
     }
 
-    public TourRating(Tour tour, Integer customerId, Integer score, String comment) {
-        this.pk = new TourRatingPk(tour, customerId);
-        this.score = score;
-        this.comment = comment;
+    public static String toString(Integer score) {
+        switch (score) {
+            case 1:
+                return "worst";
+            case 2:
+                return "worse";
+            case 3:
+                return "well";
+            case 4:
+                return "better";
+            case 5:
+                return "best";
+            default:
+                return "Unknown score: " + score;
+        }
     }
 }

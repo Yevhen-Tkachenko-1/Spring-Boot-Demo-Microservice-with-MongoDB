@@ -4,18 +4,25 @@ import com.yevhent.microservicedemo.domain.Tour;
 import com.yevhent.microservicedemo.domain.TourRating;
 import com.yevhent.microservicedemo.repository.TourRatingRepository;
 import com.yevhent.microservicedemo.repository.TourRepository;
-import com.yevhent.microservicedemo.web.TourRatingDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/tours/{tourId}/ratings")
@@ -27,62 +34,60 @@ public class TourRatingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TourRating createTourRating(@PathVariable(value = "tourId") int tourId, @RequestBody @Validated TourRatingDto tourRatingDto) {
-        Tour tour = verifyTour(tourId);
-        return tourRatingRepository.save(new TourRating(tour, tourRatingDto.getCustomerId(), tourRatingDto.getScore()));
+    public TourRating createTourRating(@PathVariable(value = "tourId") String tourId, @RequestBody @Validated TourRating tourRating) {
+        verifyTour(tourId);
+        tourRating.setTourId(tourId);
+        return tourRatingRepository.save(tourRating);
     }
 
     @GetMapping
-    public Page<TourRatingDto> getTourRatings(@PathVariable(value = "tourId") int tourId, Pageable pageable) {
+    public Page<TourRating> getTourRatings(@PathVariable(value = "tourId") String tourId, Pageable pageable) {
         verifyTour(tourId);
-        Page<TourRating> ratings = tourRatingRepository.findByPkTourId(tourId, pageable);
-        return new PageImpl<>(ratings.get().map(TourRatingDto::new).collect(Collectors.toList()), pageable, ratings.getTotalElements());
+        return tourRatingRepository.findByTourId(tourId, pageable);
     }
 
     public static final String AVERAGE_KEY = "average";
 
     @GetMapping(path = "/average")
-    public Map<String, Double> getAverageScore(@PathVariable(value = "tourId") int tourId) {
+    public Map<String, Double> getAverageScore(@PathVariable(value = "tourId") String tourId) {
         verifyTour(tourId);
-        return Map.of(AVERAGE_KEY,
-                tourRatingRepository.findByPkTourId(tourId).stream()
-                        .mapToInt(TourRating::getScore).average()
-                        .orElseThrow(() -> new NoSuchElementException("Tour has no Ratings")));
+        return Map.of(AVERAGE_KEY, tourRatingRepository.findByTourId(tourId).stream()
+                .mapToInt(TourRating::getScore).average()
+                .orElseThrow(() -> new NoSuchElementException("Tour has no Ratings")));
     }
 
     @PutMapping
-    public TourRatingDto updateCompletely(@PathVariable(value = "tourId") int tourId, @RequestBody @Validated TourRatingDto tourRatingDto) {
-        TourRating rating = verifyTourRating(tourId, tourRatingDto.getCustomerId());
-        rating.setScore(tourRatingDto.getScore());
-        rating.setComment(tourRatingDto.getComment());
-        return new TourRatingDto(tourRatingRepository.save(rating));
+    public TourRating updateCompletely(@PathVariable(value = "tourId") String tourId, @RequestBody @Validated TourRating tourRating) {
+        TourRating tourRatingUpdate = verifyTourRating(tourId, tourRating.getCustomerId());
+        tourRatingUpdate.setScore(tourRating.getScore());
+        tourRatingUpdate.setComment(tourRating.getComment());
+        return tourRatingRepository.save(tourRatingUpdate);
     }
 
     @PatchMapping
-    public TourRatingDto updateSelectively(@PathVariable(value = "tourId") int tourId, @RequestBody @Validated TourRatingDto tourRatingDto) {
-        TourRating tourRating = verifyTourRating(tourId, tourRatingDto.getCustomerId());
-        if (tourRatingDto.getScore() != null) {
-            tourRating.setScore(tourRatingDto.getScore());
+    public TourRating updatePartially(@PathVariable(value = "tourId") String tourId, @RequestBody @Validated TourRating tourRating) {
+        TourRating tourRatingUpdate = verifyTourRating(tourId, tourRating.getCustomerId());
+        if (tourRating.getScore() != null) {
+            tourRatingUpdate.setScore(tourRating.getScore());
         }
-        if (tourRatingDto.getComment() != null) {
-            tourRating.setComment(tourRatingDto.getComment());
+        if (tourRating.getComment() != null) {
+            tourRatingUpdate.setComment(tourRating.getComment());
         }
-        return new TourRatingDto(tourRatingRepository.save(tourRating));
+        return tourRatingRepository.save(tourRatingUpdate);
     }
 
     @DeleteMapping(path = "/{customerId}")
-    public void delete(@PathVariable(value = "tourId") int tourId, @PathVariable(value = "customerId") int customerId) {
+    public void delete(@PathVariable(value = "tourId") String tourId, @PathVariable(value = "customerId") int customerId) {
         TourRating rating = verifyTourRating(tourId, customerId);
         tourRatingRepository.delete(rating);
     }
 
-    private TourRating verifyTourRating(int tourId, int customerId) throws NoSuchElementException {
-        return tourRatingRepository.findByPkTourIdAndPkCustomerId(tourId, customerId).orElseThrow(() ->
-                new NoSuchElementException("Tour-Rating pair for request("
-                        + tourId + " for customer" + customerId));
+    private TourRating verifyTourRating(String tourId, int customerId) throws NoSuchElementException {
+        return tourRatingRepository.findByTourIdAndCustomerId(tourId, customerId).orElseThrow(() ->
+                new NoSuchElementException("Tour-Rating pair for request(" + tourId + " for customer" + customerId));
     }
 
-    private Tour verifyTour(int tourId) throws NoSuchElementException {
+    private Tour verifyTour(String tourId) throws NoSuchElementException {
         return tourRepository.findById(tourId).orElseThrow(() ->
                 new NoSuchElementException("Tour does not exist " + tourId));
     }

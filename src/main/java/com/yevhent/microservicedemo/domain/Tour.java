@@ -1,74 +1,38 @@
 package com.yevhent.microservicedemo.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
-@Entity
-@RequiredArgsConstructor
-@NoArgsConstructor
+@Document
 public class Tour {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    private String id;
 
-    @Column
-    @NonNull
+    @Indexed
     private String title;
 
-    @Column(length = 2000)
-    @NonNull
-    private String description;
+    @Indexed
+    private String tourPackageCode;
 
-    @Column
-    @NonNull
-    private Integer price;
+    private String tourPackageName;
 
-    @Column
-    @NonNull
-    private String duration;
+    private Map<String, String> details;
 
-    @Column(length = 2000)
-    @NonNull
-    private String bullets;
+    public Tour(String title, TourPackage tourPackage, Map<String, String> details) {
+        this.title = title;
+        this.tourPackageCode = tourPackage.getCode();
+        this.tourPackageName = tourPackage.getName();
+        this.details = details;
+    }
 
-    @Column
-    @NonNull
-    private String keywords;
-
-    @ManyToOne
-    @NonNull
-    private TourPackage tourPackage;
-
-    @Column
-    @Enumerated
-    @NonNull
-    private Difficulty difficulty;
-
-    @Column
-    @Enumerated
-    @NonNull
-    private Region region;
-
-    @Override
-    public String toString() {
-        return "Tour{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", duration='" + duration + '\'' +
-                ", tourPackage=" + tourPackage +
-                ", difficulty=" + difficulty +
-                ", region=" + region +
-                '}';
+    public Tour() {
+        this.details = new HashMap<>();
     }
 }

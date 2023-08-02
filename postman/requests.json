@@ -7,26 +7,46 @@
 	},
 	"item": [
 		{
-			"name": "1. Load all Tour Packages",
+			"name": "1.0. Profile Tour Packages",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tourPackages",
+					"raw": "http://localhost:8084/profile/packages",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages"
+						"profile",
+						"packages"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "2. Save Tour Package",
+			"name": "1.1. Load all Tour Packages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/packages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"packages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.2. Save Tour Package",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -41,33 +61,33 @@
 					"raw": "{\r\n    \"code\" : \"ZC\",\r\n    \"name\" : \"Zany Cali\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8084/tourPackages",
+					"raw": "http://localhost:8084/packages",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages"
+						"packages"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "3. Load Tour Package by ID",
+			"name": "1.3. Load Tour Package by ID (by CODE)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tourPackages/ZC",
+					"raw": "http://localhost:8084/packages/ZC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages",
+						"packages",
 						"ZC"
 					]
 				}
@@ -75,7 +95,7 @@
 			"response": []
 		},
 		{
-			"name": "4. Update Tour Package",
+			"name": "1.4. Update Tour Package by ID (by CODE)",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -90,14 +110,14 @@
 					"raw": "{\r\n    \"name\" : \"Zany California\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8084/tourPackages/ZC",
+					"raw": "http://localhost:8084/packages/ZC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages",
+						"packages",
 						"ZC"
 					]
 				}
@@ -105,19 +125,19 @@
 			"response": []
 		},
 		{
-			"name": "5. Load Tour Package by ID",
+			"name": "1.5. Load Tour Package by ID (by CODE)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tourPackages/ZC",
+					"raw": "http://localhost:8084/packages/ZC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages",
+						"packages",
 						"ZC"
 					]
 				}
@@ -125,19 +145,19 @@
 			"response": []
 		},
 		{
-			"name": "6. Delete Tour Package by ID",
+			"name": "1.6. Delete Tour Package by ID (by CODE)",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tourPackages/ZC",
+					"raw": "http://localhost:8084/packages/ZC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages",
+						"packages",
 						"ZC"
 					]
 				}
@@ -145,19 +165,19 @@
 			"response": []
 		},
 		{
-			"name": "7. Load Tour Package by ID",
+			"name": "1.7. Try Load deleted Tour Package by ID (by CODE) - should not be found because deleted",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tourPackages/ZC",
+					"raw": "http://localhost:8084/packages/ZC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages",
+						"packages",
 						"ZC"
 					]
 				}
@@ -165,19 +185,19 @@
 			"response": []
 		},
 		{
-			"name": "8. Try Delete used Tour Package by ID",
+			"name": "1.8. Try delete used Tour Package by ID (by CODE) - works for MongoDB but not for SQL",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tourPackages/BC",
+					"raw": "http://localhost:8084/packages/BC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages",
+						"packages",
 						"BC"
 					]
 				}
@@ -185,26 +205,26 @@
 			"response": []
 		},
 		{
-			"name": "9. Load Tour Package by NAME",
+			"name": "1.9. Search Tour Package by NAME",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tourPackages/search/findByName?name=Backpack%20Cal",
+					"raw": "http://localhost:8084/packages/search/findByName?name=California%20Calm",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"tourPackages",
+						"packages",
 						"search",
 						"findByName"
 					],
 					"query": [
 						{
 							"key": "name",
-							"value": "Backpack%20Cal"
+							"value": "California%20Calm"
 						}
 					]
 				}
@@ -212,27 +232,26 @@
 			"response": []
 		},
 		{
-			"name": "10. Profile Tour Packages",
+			"name": "2.0. Load all Tours",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/profile/tourPackages",
+					"raw": "http://localhost:8084/tours",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8084",
 					"path": [
-						"profile",
-						"tourPackages"
+						"tours"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "11. Sort Tours",
+			"name": "2.1. Sort Tours",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -257,7 +276,7 @@
 			"response": []
 		},
 		{
-			"name": "12. Page Tours",
+			"name": "2.2. Page Tours",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -290,7 +309,7 @@
 			"response": []
 		},
 		{
-			"name": "13. Page Tours by TourPackageCode",
+			"name": "2.3. Search, Sort and Page Tours by TourPackageCode",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -329,7 +348,7 @@
 			"response": []
 		},
 		{
-			"name": "14. Try Delete Tour",
+			"name": "2.4. Try Delete Tour - should not allow",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -349,7 +368,7 @@
 			"response": []
 		},
 		{
-			"name": "15. Load all Tours",
+			"name": "2.5. Load all Tours",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -368,12 +387,12 @@
 			"response": []
 		},
 		{
-			"name": "16. Load All Ratings for Tour[1]",
+			"name": "3.0. Load All Ratings for Tour (update url to specify TourId)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -381,7 +400,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					]
 				}
@@ -389,12 +408,12 @@
 			"response": []
 		},
 		{
-			"name": "17. Sort Ratings by Score for Tour[1]",
+			"name": "3.1. Sort Ratings by Score for Tour (update url to specify TourId)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings?sort=score,desc",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings?sort=score,desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -402,7 +421,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					],
 					"query": [
@@ -416,12 +435,12 @@
 			"response": []
 		},
 		{
-			"name": "18. Page Ratings for Tour[1]",
+			"name": "3.2. Page Ratings for Tour (update url to specify TourId)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings?page=2&size=1&sort=score,desc",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings?page=2&size=1&sort=score,desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -429,7 +448,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					],
 					"query": [
@@ -451,7 +470,7 @@
 			"response": []
 		},
 		{
-			"name": "19. Save Rating for Tour[1]",
+			"name": "3.3. Save Rating[cutomerId=100] for Tour (update url to specify TourId)",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -466,7 +485,7 @@
 					"raw": "{\r\n    \"score\" : 5,\r\n    \"comment\" : \"best\",\r\n    \"customerId\" : 100\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -474,7 +493,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					]
 				}
@@ -482,12 +501,12 @@
 			"response": []
 		},
 		{
-			"name": "20. Load All Ratings for Tour[1]",
+			"name": "3.4. Load All Ratings for Tour (update url to specify TourId)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -495,7 +514,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					]
 				}
@@ -503,12 +522,12 @@
 			"response": []
 		},
 		{
-			"name": "21. Calculate Average Rating for Tour[1]",
+			"name": "3.5. Calculate Average Rating for Tour (update url to specify TourId)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings/average",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings/average",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -516,7 +535,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings",
 						"average"
 					]
@@ -525,7 +544,7 @@
 			"response": []
 		},
 		{
-			"name": "22. Fully Update Rating[cutomerId=100] for Tour[1]",
+			"name": "3.6. Fully Update Rating[cutomerId=100] for Tour (update url to specify TourId)",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -540,7 +559,7 @@
 					"raw": "{\r\n    \"score\" : 4,\r\n    \"comment\" : \"good\",\r\n    \"customerId\" : 100\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -548,7 +567,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					]
 				}
@@ -556,12 +575,12 @@
 			"response": []
 		},
 		{
-			"name": "23. Load All Ratings for Tour[1]",
+			"name": "3.7. Load All Ratings for Tour (update url to specify TourId)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -569,7 +588,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					]
 				}
@@ -577,7 +596,7 @@
 			"response": []
 		},
 		{
-			"name": "24. Partially update Rating[cutomerId=100] for Tour[1]",
+			"name": "3.8. Partially update Rating[cutomerId=100] for Tour (update url to specify TourId)",
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -592,7 +611,7 @@
 					"raw": "{\r\n    \"score\" : 3,\r\n    \"customerId\" : 100\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -600,7 +619,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					]
 				}
@@ -608,12 +627,12 @@
 			"response": []
 		},
 		{
-			"name": "25. Load All Ratings for Tour[1]",
+			"name": "3.9. Load All Ratings for Tour (update url to specify TourId)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -621,7 +640,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					]
 				}
@@ -629,12 +648,12 @@
 			"response": []
 		},
 		{
-			"name": "26. Delete Rating[customerId=100] for Tour[1]",
+			"name": "3.10. Delete Rating[customerId=100] for Tour (update url to specify TourId)",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings/100",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings/100",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -642,7 +661,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings",
 						"100"
 					]
@@ -651,12 +670,12 @@
 			"response": []
 		},
 		{
-			"name": "27. Load All Ratings for Tour[1]",
+			"name": "3.11. Load All Ratings for Tour (update url to specify TourId)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/tours/1/ratings",
+					"raw": "http://localhost:8084/tours/tourIdPlaceholder/ratings",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -664,7 +683,7 @@
 					"port": "8084",
 					"path": [
 						"tours",
-						"1",
+						"tourIdPlaceholder",
 						"ratings"
 					]
 				}
